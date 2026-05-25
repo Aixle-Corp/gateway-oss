@@ -58,7 +58,9 @@ jobs:
       - run: pip install -e '.[dev]'
       - name: run integration-marked tests
         # exit code 5 = no tests collected; treat as success at MVP (no integration tests exist yet).
+        shell: bash
         run: |
+          set +e
           pytest sdk/python/tests -m integration
           code=$?
           if [ $code -eq 5 ]; then exit 0; fi

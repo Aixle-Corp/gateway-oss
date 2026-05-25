@@ -1,16 +1,16 @@
+version: "2"
+
 run:
   timeout: 5m
-  go: "1.26"
 
 linters:
-  disable-all: true
+  default: none
   enable:
     - errcheck
     - govet
     - ineffassign
     - staticcheck
     - unused
-
-issues:
-  exclude-dirs:
-    - proto/gen
+  exclusions:
+    paths:
+      - proto/gen
