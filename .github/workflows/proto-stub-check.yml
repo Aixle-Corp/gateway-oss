@@ -1,0 +1,35 @@
+name: proto-stub-check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  regenerate-and-diff:
+    name: regenerate stubs and diff
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bufbuild/buf-action@v1
+        with:
+          version: '1.70.0'
+          setup_only: true
+      - name: buf lint
+        working-directory: proto
+        run: buf lint
+      - name: regenerate stubs
+        working-directory: proto
+        run: |
+          rm -rf gen
+          buf generate
+      - name: diff against committed stubs
+        run: |
+          if ! git diff --exit-code --stat -- proto/gen; then
+            echo "::error::Generated proto stubs differ from committed stubs. Run 'cd proto && buf generate' locally and commit the result."
+            exit 1
+          fi

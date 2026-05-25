@@ -1,0 +1,28 @@
+# Go
+/cli/bin/
+*.test
+*.out
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Node / TypeScript
+node_modules/
+sdk/typescript/dist/
+sdk/typescript/coverage/
+.vitest/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

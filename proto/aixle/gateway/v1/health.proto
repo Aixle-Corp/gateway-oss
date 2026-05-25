@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package aixle.gateway.v1;
+
+option go_package = "github.com/Aixle-Corp/gateway-oss/proto/gen/go/aixle/gateway/v1;gatewayv1";
+
+// HealthCheck is the minimum viable Plane Protocol message used to verify
+// the cross-language codegen toolchain end-to-end. Substantive Plane Protocol
+// schema authoring happens in STEP-6.
+message HealthCheck {
+  string component = 1;
+  bool ok = 2;
+}

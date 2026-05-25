@@ -1,0 +1,10 @@
+Aixle Gateway — `gateway-oss`
+
+Copyright (c) 2026 Aixle Corp.
+
+This repository is licensed under the MIT License (see LICENSE).
+
+This repository contains original works authored by Aixle Corp. It does not
+incorporate third-party source code at this time. Third-party dependencies
+pulled in via package managers (Go modules, Python packages, npm) are governed
+by their own licenses; see each dependency's metadata for terms.

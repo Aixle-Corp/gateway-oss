@@ -1,0 +1,65 @@
+name: python
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --upgrade pip
+      - run: pip install -e '.[dev]'
+      - run: ruff check sdk/python
+
+  typecheck:
+    name: typecheck (mypy --strict)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --upgrade pip
+      - run: pip install -e '.[dev]'
+      - run: mypy sdk/python/gateway_oss
+
+  unit:
+    name: unit (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --upgrade pip
+      - run: pip install -e '.[dev]'
+      - run: pytest sdk/python/tests
+
+  fast-integration:
+    name: fast-integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --upgrade pip
+      - run: pip install -e '.[dev]'
+      - name: run integration-marked tests
+        # exit code 5 = no tests collected; treat as success at MVP (no integration tests exist yet).
+        run: |
+          pytest sdk/python/tests -m integration
+          code=$?
+          if [ $code -eq 5 ]; then exit 0; fi
+          exit $code

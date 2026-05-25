@@ -1,0 +1,14 @@
+# Bundled-default policy stub.
+#
+# This file is the placeholder for the Aixle-counterparty-verified bundled default
+# policy described in design/03-commercial.md §4.5. Substantive policy authoring
+# happens after the policy engine schema lands in STEP-4.
+#
+# At MVP this file documents the slot; it carries no enforcement rules.
+
+version: 0
+name: default-policy-placeholder
+description: >-
+  Placeholder for the bundled-default policy. Will be replaced with the
+  Aixle-counterparty-verified policy ruleset in a later milestone.
+rules: []
